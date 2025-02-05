@@ -1,12 +1,18 @@
-from reddit_post_creator import create_reddit_post
+from scheduler import RedditScheduler
 
-def test_post():
-    result = create_reddit_post(
-        title="Test Post",
-        content="This is a test post from my Reddit scheduler!",
-        subreddit_name="test"
+def main():
+    scheduler = RedditScheduler()
+    
+    # Schedule a test post for a specific time
+    scheduler.add_post(
+        title="Scheduled Test Post",
+        content="This post was automatically scheduled!",
+        subreddit="test",
+        post_time="01:07"  # Will post at 1:05 AM
     )
-    print(f"Post success: {result}")
+    
+    # Run the scheduler
+    scheduler.run()
 
 if __name__ == "__main__":
-    test_post()
+    main()
