@@ -15,11 +15,16 @@ def main():
 * Must talk in chat no matter what time it is.
 """
     
-    create_reddit_post(
+    # Make the post
+    success = create_reddit_post(
         title=title,
         content=content,
         subreddit_name="ClashOfClansRecruit"  # Change to your target subreddit
     )
+    
+    # GitHub Actions will show this in the run log
+    if not success:
+        raise Exception("Failed to create Reddit post")
 
 if __name__ == "__main__":
     main() 
