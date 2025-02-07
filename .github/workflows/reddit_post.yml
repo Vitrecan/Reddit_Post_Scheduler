@@ -2,12 +2,7 @@ name: Weekly Reddit Post
 
 on:
   schedule:
-    # This is in UTC time. "0 13 * * 1" means:
-    # 0 - At minute 0
-    # 13 - At 13:00 (1 PM)
-    # * - Every day of the month
-    # * - Every month
-    # 1 - Only on Mondays
+    # 13:00 UTC = 9:00 AM EDT (New York during daylight saving)
     - cron: '0 13 * * 1'
   workflow_dispatch:  # Allows manual trigger for testing
 
