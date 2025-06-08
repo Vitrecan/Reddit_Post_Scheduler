@@ -1,0 +1,14 @@
+name: Keep Repository Active
+
+on:
+  schedule:
+    - cron: '0 0 * * 7' # Runs every Sunday at midnight UTC
+
+jobs:
+  keep_active:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Perform a Minimal Action
+        run: echo "This workflow prevents GitHub Action inactivity."
