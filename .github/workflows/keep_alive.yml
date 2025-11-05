@@ -1,43 +1,13 @@
-name: Keep Repository Active (Monthly Commit)
+name: Keep Repository Active (Monthly No Commits)
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs daily at midnight UTC
+    - cron: '0 0 1 * *' # Runs at midnight UTC on the 1st of every month
   workflow_dispatch:
 
 jobs:
   keep_active:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          ref: keepalive-monthly   # Keep activity isolated
-
-      - name: Decide commit type
-        id: commit_type
-        run: |
-          DAY=$(date -u +%d) # Day of month (01–31)
-          if [ "$DAY" -eq 1 ]; then
-            echo "commit=true" >> $GITHUB_OUTPUT
-          else
-            echo "commit=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Update keepalive file
-        if: steps.commit_type.outputs.commit == 'true'
-        run: |
-          echo "Monthly keepalive run: $(date -u)" > .keepalive
-
-      - name: Commit changes
-        if: steps.commit_type.outputs.commit == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .keepalive
-          git commit -m "chore: monthly keepalive update [skip ci]" || echo "No changes to commit"
-
-      - name: Push changes
-        if: steps.commit_type.outputs.commit == 'true'
-        run: |
-          git push origin HEAD:keepalive-monthly
+      - name: Do a minimal action
+        run: echo "Monthly keepalive run at $(date -u)"
